@@ -1,9 +1,9 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { firebase } from './pages/Services/firebase';
+import { firebase } from './Services/firebase';
 
 import AddCard from './pages/addCard';
 import FlashCard from './pages/flashcard';
