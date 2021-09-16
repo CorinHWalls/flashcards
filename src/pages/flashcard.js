@@ -1,14 +1,15 @@
 import React from "react";
 import { Component } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { getData, getFlashCards } from "../Services/firebase";
 
 export default class FlashCard extends Component {
   constructor() {
-    super(); //required to use this.prop
+    super(this.props); //required to use this.prop
 
     //this is referring to the instance of this component
     this.state = {
-      FlashCards: [],
+      flashCards: [],
       index: 0,
       isLoaded: false,
       term: true,
@@ -17,26 +18,29 @@ export default class FlashCard extends Component {
 
   async componentDidMount() {
     //will run when this component runs
+   await getFlashCards();
+ const data =  getData();
+ this.setState({flashCards : data}) //targeting empty flashcards aray
+ this.setState({isLoaded : true})
 
-    const data = await [
-      {
-        Category: "Object",
-        Definition: "Round bouncy object",
-        Term: "Ball",
-      },
-      {
-        Category: "Shape",
-        Definition: "a plane figure with three straight sides and three angles",
-        Term: "Triangle",
-      },
-      {
-        Category: "Place",
-        Definition: "An insitution for educating individuals",
-        Term: "School",
-      },
-    ];
-    this.setState({ FlashCards: data }); //use setState to update the state of component
-    this.setState({ isLoaded: true });
+    // const data = await [
+    //   {
+    //     Category: "Object",
+    //     Definition: "Round bouncy object",
+    //     Term: "Ball",
+    //   },
+    //   {
+    //     Category: "Shape",
+    //     Definition: "a plane figure with three straight sides and three angles",
+    //     Term: "Triangle",
+    //   },
+    //   {
+    //     Category: "Place",
+    //     Definition: "An insitution for educating individuals",
+    //     Term: "School",
+    //   },
+    // ];
+
   }
 
   render() {
