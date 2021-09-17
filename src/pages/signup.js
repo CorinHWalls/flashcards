@@ -1,26 +1,26 @@
 import React from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 
-export default function Signup() {
+export default function SignupScreen() {
     return (
         <>
         <Card>
             <Card.Body>
                 <h2 className="text-center mb-4">Sign Up</h2>
                 <Form>
-                    <Form.Group id='email'>
+                    <Form.Group>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type='email'  required />
+                    <Form.Control id='email' type='email'  required />
                     </Form.Group>
 
-                    <Form.Group id='password'>
+                    <Form.Group >
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type='Password' required />
+                    <Form.Control id='password' type='Password' required />
                     </Form.Group>
 
-                    <Form.Group id='password-confirm'>
+                    <Form.Group >
                     <Form.Label>Password Confirmation</Form.Label>
-                    <Form.Control type='Password' required />
+                    <Form.Control id='password-confirm' type='Password' required />
                     </Form.Group>
 
                 </Form>

@@ -1,46 +1,79 @@
 import React from "react";
 import { Component } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-import { logIn } from "../Services/firebase";
+import { firebase, logIn} from "../Services/firebase";
+import { Link } from "react-router-dom";
 
-let email = document.getElementById('email');
-let password = document.getElementById('password');
-let login = document.getElementById('login');
 
-export default class Login extends Component{
-    constructor(props){
-        super(props);
+
+
+export default class LoginScreen extends Component{
+   
+
+constructor(props){
+    super(props)
+    
+    this.state = { 
+        email: '',
+        password: '',
+       
+
     }
+    
+}
 
+handleEmailInput = (event) => {
+    this.setState({
+        email: event.target.value,
+    });
+
+}
+
+handlePasswordInput = (event) => {
+    this.setState({
+        password: event.target.value,
+    });
+}
+
+
+handleEvent = (event) => {
+    logIn(this.state.email, this.state.password);
+    console.log(this.state.email);
+    console.log(this.state.password);
+  } 
+    
     render(){
-
+        
+    
     return(
-      <Container className="d-flex align-items-center justify-content-center" style={{minHeight : '100vh'}}>
+
+    <>
       <Card>
             <Card.Body>
                 <h2 className="text-center mb-4">Login</h2>
                 <Form>
-                    <Form.Group id='email'>
+                    <Form.Group >
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type='email'  required />
+                    <Form.Control onChange={this.handleEmailInput} type='email'required />
                     </Form.Group>
 
-                    <Form.Group id='password'>
+                    <Form.Group >
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type='Password' required />
+                    <Form.Control onChange={this.handlePasswordInput} type='Password'  required />
                     </Form.Group>
 
                 </Form>
                 <div className='pt-4'>
-                <Button id='login' className='w-100' type='submit'>Login</Button>
+                <Button onClick={this.handleEvent} className='w-100' type='submit'>Login</Button>
                 </div>
                     
             </Card.Body>
         </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? Click here.
+                Need an account? Signup
             </div>
-        </Container>
+            </>
+        // </Container>
         
     )
 
