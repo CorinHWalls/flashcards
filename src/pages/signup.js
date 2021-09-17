@@ -1,7 +1,22 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 
-export default function SignupScreen() {
+export default class SignupScreen extends Component{
+
+    constructor(props){
+        super(props)
+        
+        this.state = { 
+            email: '',
+            password: '',
+            passwordConfirm: ''
+
+        }
+        
+    }
+render(){
+
+
     return (
         <>
         <Card>
@@ -35,6 +50,7 @@ export default function SignupScreen() {
             </div>
         </>
     )
+}
 }
 
 

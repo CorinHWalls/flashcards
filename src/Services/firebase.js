@@ -2,6 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { BrowserRouter as Redirect, Switch, Router } from 'react-router-dom';
+import FlashCard from "../pages/flashcard";
+import { createBrowserHistory } from 'history'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -55,6 +58,8 @@ function getData(){
     return cards;
 }
 
+const newHistory = createBrowserHistory();
+
 
 function logIn(email, password){
   console.log("hit");
@@ -63,8 +68,16 @@ function logIn(email, password){
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
+      console.log(newHistory);
+      newHistory.push('/flashcard');
       console.log(user);
-      // ...
+      // <Router history={newHistory}>
+
+      // <Switch>
+      //   <Redirect to="/flashcard" />
+      // </Switch>
+      // </Router>
+
     })
     .catch((error) => {
       const errorCode = error.code;

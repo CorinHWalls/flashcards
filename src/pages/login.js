@@ -17,7 +17,6 @@ constructor(props){
         email: '',
         password: '',
        
-
     }
     
 }
@@ -46,9 +45,16 @@ handleEvent = (event) => {
         
     
     return(
+        <>
+        <Container>
+        <Row>
+        <Col className="d-flex justify-content-center">
+        <h1>Flash Cards</h1>
+        </Col>
+        </Row>
+        </Container>
 
-    <>
-      <Card>
+      <Card className="pt-2">
             <Card.Body>
                 <h2 className="text-center mb-4">Login</h2>
                 <Form>
