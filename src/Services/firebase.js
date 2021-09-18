@@ -40,6 +40,11 @@ async function AddFlashCard( card ){
 }
 
 const cards = []
+const reactCards = []
+const jsCards = []
+const htmlCards = []
+const cssCards = []
+
 
 // call this when the app loads so the data can already be loaded. 
 async function getFlashCards(){
@@ -71,13 +76,6 @@ function logIn(email, password){
       console.log(newHistory);
       newHistory.push('/flashcard');
       console.log(user);
-      // <Router history={newHistory}>
-
-      // <Switch>
-      //   <Redirect to="/flashcard" />
-      // </Switch>
-      // </Router>
-
     })
     .catch((error) => {
       const errorCode = error.code;
