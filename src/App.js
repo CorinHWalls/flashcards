@@ -18,12 +18,11 @@ function App() {
     <>
       <Router>
         <Switch>
+
           <Route path="/flashcard">
             <FlashCard />
           </Route>
-          <Route path="/flashcard">
-            <FlashCard />
-          </Route>
+          
           <Route path="/">
             <Container
               className="d-flex align-items-center justify-content-center"
@@ -34,6 +33,8 @@ function App() {
               </div>
             </Container>
           </Route>
+
+          
         </Switch>
       </Router>
     </>

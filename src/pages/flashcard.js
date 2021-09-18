@@ -1,6 +1,7 @@
 import React from "react";
 import { Component } from "react";
 import { getData, getFlashCards } from "../Services/firebase";
+import CategoryMenu from "./catagoryMenu";
 import {
   Container,
   Row,
@@ -19,67 +20,55 @@ export default class FlashCard extends Component {
     //Define the initial state:
     this.state = {
       flashCards: [],
-      currentCard: {},
       index: 0,
       isLoaded: false,
       term: true,
     };
+    //Binding this keyword
+    this.handleNextBtn = this.handleNextBtn.bind(this)
+    this.handlePrevBtn = this.handlePrevBtn.bind(this)
   }
 
   async componentWillMount() {
 
-    const currentCards = this.state.flashCards;
     //will run when this component runs
     await getFlashCards();
-    this.setState({ flashCards: getData() }); //targeting empty flashcards aray
+    this.setState({ flashCards: getData() }); //targeting empty flashcards array and dump data
     this.setState({ isLoaded: true });
     
   }
 
-  componentDidUpdate(){
 
-  }
-
+//Updating states for Next and prev buttons
   handleNextBtn(event) {
-    debugger
-    // if (this.state.index + 1 == this.state.flashCards.length) {
-    //   this.setState({ index: 0 });
-    // }
-    // if (this.state.index === 1) {
-    //   this.setState({ index: 0 });
-    // }
-    // else{
-      // this.setState({ index: 1});
-      console.log(this.state.index)
-    //}
-  }
+    
+    if (++this.state.index == this.state.flashCards.length) {
+      this.setState({ index: 0 });
+    }
+    else{
+      this.setState({ index: 1})
+    }
 
+  }
   handlePrevBtn(event) {
     if (--this.state.index < 0) {
       this.setState({ index: this.state.flashCards.length - 1 });
+    }
+    else{
+      this.setState({ index: this.state.flashCards.length - 2 });
     }
   }
 
   render() {
     return (
       <>
-        <Container>
-          <row>
-            <Col>
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Categories">
-                <Dropdown.Item value='html'>HTML</Dropdown.Item>
-                <Dropdown.Item value='css'>CSS</Dropdown.Item>
-                <Dropdown.Item value='javascript'>Javascript</Dropdown.Item>
-                <Dropdown.Item value='react'>React</Dropdown.Item>
-                <Dropdown.Item value='angular'>Angular</Dropdown.Item>
-                <Dropdown.Item value='c#'>C#</Dropdown.Item>
-              </DropdownButton>
-            </Col>
-          </row>
-        </Container>
+       <Container>
+  
+         <CategoryMenu />
+         
+      </Container>
 
+      <dropdown />
         <Container className="center">
           <Row>
             <Col>

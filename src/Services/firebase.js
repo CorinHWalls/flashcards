@@ -39,6 +39,8 @@ async function AddFlashCard( card ){
 
 }
 
+const categoryRef = collection(db, 'Category');
+
 const cards = []
 const reactCards = []
 const jsCards = []
