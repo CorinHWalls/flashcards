@@ -27,6 +27,7 @@ export default class FlashCard extends Component {
     //Binding this keyword
     this.handleNextBtn = this.handleNextBtn.bind(this)
     this.handlePrevBtn = this.handlePrevBtn.bind(this)
+    this.handleAddCardBtn = this.handleAddCardBtn.bind(this)
   }
 
   async componentWillMount() {
@@ -58,6 +59,10 @@ export default class FlashCard extends Component {
       this.setState({ index: this.state.flashCards.length - 2 });
     }
   }
+  
+  handleAddCardBtn(event){
+  //go yo add card page
+  }
 
   render() {
     return (
@@ -68,7 +73,11 @@ export default class FlashCard extends Component {
          
       </Container>
 
-      <dropdown />
+      <button onClick={this.handleAddCardBtn} className="btn btn-danger">
+                Add card
+              </button>
+
+    
         <Container className="center">
           <Row>
             <Col>

@@ -2,9 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { BrowserRouter as Redirect, Switch, Router } from 'react-router-dom';
-import FlashCard from "../pages/flashcard";
 import { createBrowserHistory } from 'history'
+import { getDatabase, ref, query, orderByChild,  } from "firebase/database";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,6 +23,7 @@ const firebase = initializeApp(firebaseConfig);
 const db = getFirestore();
 
 //async api call, this function allows us to use await
+
 //add Data
 async function AddFlashCard( card ){
 
@@ -39,31 +40,63 @@ async function AddFlashCard( card ){
 
 }
 
-const categoryRef = collection(db, 'Category');
 
-const cards = []
-const reactCards = []
+const allCards = []
 const jsCards = []
+const reactCards = []
 const htmlCards = []
 const cssCards = []
 
 
 // call this when the app loads so the data can already be loaded. 
 async function getFlashCards(){
-    cards.length = 0; //so the data is not duplicated when this func is called
+    allCards.length = 0; //so the data is not duplicated when this func is called
+    jsCards.length = 0; //so the data is not duplicated when this func is called
+    reactCards.length = 0; //so the data is not duplicated when this func is called
+    htmlCards.length = 0; //so the data is not duplicated when this func is called
+    cssCards.length = 0; //so the data is not duplicated when this func is called
+    
     const querySnapshot = await getDocs(collection(db, "flashcards"));
-querySnapshot.forEach((doc) => {
+    await querySnapshot.forEach((doc) => {
+   
+      if(doc.data() === 'Javascript'){
+        jsCards.push(doc.data())
+      }
+      if(doc.data() === 'React'){
+        reactCards.push(doc.data())
+      }
+      if(doc.data() === 'HTML'){
+        htmlCards.push(doc.data())
+      }
+      if(doc.data() === 'CSS'){
+        cssCards.push(doc.data())
+      }
 
-    cards.push(doc.data());
-//   console.log(`${doc.id} => ${doc.data()}`);
+    allCards.push(doc.data());
+
 });
 
 }
 
 //call this function when you need to display the data
 function getData(){
-    return cards;
+    return allCards;
 }
+function getJSData(){
+    return jsCards;
+}
+function getReactData(){
+    return reactCards;
+}
+function getHTMLData(){
+    return htmlCards;
+}
+function getCSSData(){
+    return cssCards;
+}
+
+
+// const categories = query(ref(db, 'flashcards'), equalTo('javascript'));
 
 const newHistory = createBrowserHistory();
 
@@ -89,4 +122,4 @@ function logIn(email, password){
 
 
 
-export { firebase, db, getFlashCards, getData, AddFlashCard, logIn }
+export { firebase, db, getFlashCards, getData, getJSData, getReactData, getHTMLData, getCSSData, AddFlashCard, logIn }
