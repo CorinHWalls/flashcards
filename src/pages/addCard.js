@@ -14,11 +14,9 @@ export default class AddCard extends Component {
   }
 
   handleInputFields = (event) => {
-    this.setState({
-      Category: event.target.value,
-      Definition: event.target.value,
-      Term: event.target.value
-    })
+  
+     event.target.name === 'Category' ? this.setState({Category: event.target.value}) : event.target.name === 'Term' ? this.setState({ Term: event.target.value}) : this.setState({Definition: event.target.value});
+ 
   }
 
   handleSubmit = (event) => {
@@ -40,17 +38,17 @@ export default class AddCard extends Component {
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Catagory</Form.Label>
-              <Form.Control name='category' onChange={this.handleInputFields} type="text" placeholder="Enter catagory" />
+              <Form.Control name='Category' onChange={this.handleInputFields} type="text" placeholder="Enter catagory" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Term</Form.Label>
-              <Form.Control onChange={this.handleInputFields} type="text" placeholder="Enter term" />
+              <Form.Control name='Term' onChange={this.handleInputFields} type="text" placeholder="Enter term" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Definition</Form.Label>
-              <Form.Control onChange={this.handleInputFields} type="text" placeholder="Enter definition" />
+              <Form.Control name="Definition" onChange={this.handleInputFields} type="text" placeholder="Enter definition" />
             </Form.Group>
     
             <Button onClick={this.handleSubmit} variant="primary" type="submit">
