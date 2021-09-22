@@ -104,15 +104,17 @@ const newHistory = createBrowserHistory();
 function logIn(email, password){
   console.log("hit");
   const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
+  signInWithEmailAndPassword(auth, email, password)   //issue here not reaching this point
     .then((userCredential) => {
+      
       // Signed in 
       const user = userCredential.user;
-      console.log(newHistory);
+      console.log('Signed in')
       newHistory.push('/flashcard');
       console.log(user);
     })
     .catch((error) => {
+      
       const errorCode = error.code;
       const errorMessage = error.message;
     });

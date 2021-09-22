@@ -23,10 +23,7 @@ function App() {
       <BrowserRouter>
         <Router>
           <Switch>
-            <Route path="/flashcard">
-              <FlashCard />
-            </Route>
-
+            {/* Main Login Route */}
             <Route path="/">
               <Container
                 className="d-flex align-items-center justify-content-center"
@@ -38,6 +35,12 @@ function App() {
               </Container>
             </Route>
 
+            {/* FlashCard Route */}
+            <Route path="/flashcard">
+              <FlashCard />
+            </Route>
+
+            {/* Add Card route */}
             <Route path="/addcard">
               <AddCard />
             </Route>

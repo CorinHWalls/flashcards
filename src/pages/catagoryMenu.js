@@ -10,11 +10,11 @@ export default class CategoryMenu extends Component {
       showMenu: false,
     };
 
-    this.showMenu = this.showMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
+    // this.showMenu = this.showMenu.bind(this);
+    // this.closeMenu = this.closeMenu.bind(this);
   }
 
-  showMenu(event) {
+  showMenu = (event) => {
     event.preventDefault();
 
     this.setState({ showMenu: true }, () => {
@@ -24,7 +24,7 @@ export default class CategoryMenu extends Component {
     });
   }
 
-  closeMenu() {
+  closeMenu = () => {
     this.setState({ showMenu: false }, () => {
       // document.removeEventListener("click", this.closeMenu);
 

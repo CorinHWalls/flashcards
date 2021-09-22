@@ -2,6 +2,8 @@ import React from "react";
 import { Component } from "react";
 import { getData, getFlashCards } from "../Services/firebase";
 import CategoryMenu from "./catagoryMenu";
+import ReactCardFlip from 'react-card-flip';
+
 import {
   Container,
   Row,
@@ -24,10 +26,7 @@ export default class FlashCard extends Component {
       isLoaded: false,
       term: true,
     };
-    //Binding this keyword
-    this.handleNextBtn = this.handleNextBtn.bind(this)
-    this.handlePrevBtn = this.handlePrevBtn.bind(this)
-    this.handleAddCardBtn = this.handleAddCardBtn.bind(this)
+    
   }
 
   async componentWillMount() {
@@ -41,26 +40,26 @@ export default class FlashCard extends Component {
 
 
 //Updating states for Next and prev buttons
-  handleNextBtn(event) {
+  handleNextBtn = (event) => {
     
-    if (++this.state.index == this.state.flashCards.length) {
+    if (++this.state.index <= this.state.flashCards.length) {
       this.setState({ index: 0 });
     }
-    else{
-      this.setState({ index: 1})
-    }
+    // else{
+    //   this.setState({ index: 1})
+    // }
 
   }
-  handlePrevBtn(event) {
-    if (--this.state.index < 0) {
+  handlePrevBtn = (event) => {
+    if (--this.state.index <= 0) {
       this.setState({ index: this.state.flashCards.length - 1 });
     }
-    else{
-      this.setState({ index: this.state.flashCards.length - 2 });
-    }
+    // else{
+    //   this.setState({ index: this.state.flashCards.length - 1 });
+    // }
   }
   
-  handleAddCardBtn(event){
+  handleAddCardBtn = (event) => {
   //go yo add card page
   }
 

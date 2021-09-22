@@ -6,6 +6,8 @@ import AddCard from './pages/addCard';
 import FlashCard from './pages/flashcard';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { logIn } from './Services/firebase';
+import LoginScreen from './pages/login';
 
 
 
