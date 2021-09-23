@@ -14,7 +14,7 @@ import LoginScreen from './pages/login';
 
 ReactDOM.render(
   
-  <AddCard />,
+  <FlashCard/>,
   document.getElementById('root')
 );
 

@@ -1,8 +1,15 @@
 import React from "react";
 import { Component } from "react";
-import { getData, getFlashCards } from "../Services/firebase";
-import CategoryMenu from "./catagoryMenu";
-import ReactCardFlip from 'react-card-flip';
+import {
+  getData,
+  getFlashCards,
+  getJSData,
+  getReactData,
+} from "../Services/firebase";
+import ReactCardFlip from "react-card-flip";
+import "../styles/Card.css";
+import { Form } from "react-bootstrap";
+import { useHistory } from "react-router";
 
 import {
   Container,
@@ -14,6 +21,7 @@ import {
   Button,
   ButtonGroup,
 } from "react-bootstrap";
+import addCardBtn from "./addCardBtn";
 
 export default class FlashCard extends Component {
   constructor(props) {
@@ -26,70 +34,118 @@ export default class FlashCard extends Component {
       isLoaded: false,
       term: true,
     };
-    
   }
 
   async componentWillMount() {
-
     //will run when this component runs
     await getFlashCards();
     this.setState({ flashCards: getData() }); //targeting empty flashcards array and dump data
     this.setState({ isLoaded: true });
-    
   }
 
-
-//Updating states for Next and prev buttons
+  //Updating states for Next and prev buttons
   handleNextBtn = (event) => {
-    
-    if (++this.state.index <= this.state.flashCards.length) {
+
+    this.setState({index: this.state.index +1});
+
+    if (this.state.index == this.state.flashCards.length -1) {
+      this.setState({ index: this.state.flashCards.length + 1 });
+      this.setState({index: 0})
+    } 
+  };
+
+  handlePrevBtn = (event) => {
+    if (this.state.index === 0) {
+      this.setState({ index: this.state.flashCards.length - 1 });
+    } else {
       this.setState({ index: 0 });
     }
-    // else{
-    //   this.setState({ index: 1})
-    // }
+  };
 
-  }
-  handlePrevBtn = (event) => {
-    if (--this.state.index <= 0) {
-      this.setState({ index: this.state.flashCards.length - 1 });
+ 
+
+  handleCardFlip = (event) => {
+    const card = document.querySelector(".card__inner");
+    card.classList.toggle("is-flipped");
+  };
+
+  handleChange = async (event) => {
+
+    let data;
+    switch (event.target.value) {
+      case "Javascript":
+          data = await getJSData();
+        break;
+      case "React":
+          data = await getReactData();
+        break;
+      case "HTML":
+        console.log('HTML was selected')
+        break;
+      case "CSS":
+                console.log('CSS was selected')
+        break;
+    
+      default:
+         data = getData();
+        break;
     }
-    // else{
-    //   this.setState({ index: this.state.flashCards.length - 1 });
-    // }
-  }
-  
-  handleAddCardBtn = (event) => {
-  //go yo add card page
+
+    this.setState({
+      flashCards: data,
+      index: 0
+    })
   }
 
   render() {
     return (
       <>
-       <Container>
-  
-         <CategoryMenu />
-         
-      </Container>
+        <Container>
+          <Form>
+            <Form.Select onChange={this.handleChange} aria-label="Default select example">
+              <option>Choose a Category</option>
+              <option value="default">All</option>
+              <option value="Javascript">Javascript</option>
+              <option value="React">React</option>
+            </Form.Select>
+          </Form>
+        </Container>
 
-      <button onClick={this.handleAddCardBtn} className="btn btn-danger">
-                Add card
-              </button>
+        
 
-    
         <Container className="center">
           <Row>
             <Col>
-              <Card style={({ width: "30rem" }, { height: "15rem" })}>
-                <Card.Body>
-                  <Card.Title>
-                    Category:{this.state.isLoaded ? this.state.flashCards[this.state.index].Category : ""}
-                  </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-
-                  {this.state.isLoaded ? this.state.flashCards[this.state.index].Term : ""}
-                </Card.Body>
-              </Card>
+              <div className="card">
+                <div onClick={this.handleCardFlip} className="card__inner">
+                  <div className="card__face card__face--front">
+                    {this.state.isLoaded
+                      ? this.state.flashCards[this.state.index].Term
+                      : ""}
+                  </div>
+                  <div className="card__face card__face--back">
+                    <div className="card__content">
+                      <div className="card__header">
+                        Category:{" "}
+                        {this.state.isLoaded
+                          ? this.state.flashCards[this.state.index].Category
+                          : ""}
+                      </div>
+                      <div className="card__body">
+                        {this.state.isLoaded
+                          ? this.state.flashCards[this.state.index].Term
+                          : ""}
+                        <p>
+                          <br />
+                          {this.state.isLoaded
+                            ? this.state.flashCards[this.state.index].Definition
+                            : ""}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -100,7 +156,8 @@ export default class FlashCard extends Component {
               <button onClick={this.handlePrevBtn} className="btn btn-danger">
                 Previous
               </button>
-              <button className="btn btn-primary">See Definition</button>
+            </Col>
+            <Col>
               <button onClick={this.handleNextBtn} className="btn btn-warning">
                 Next
               </button>
