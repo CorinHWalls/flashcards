@@ -1,47 +1,35 @@
-import React from "react";
-import { Component } from "react";
+import React, {useState} from 'react';
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { firebase, logIn} from "../Services/firebase";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import history from '../Services/history';
 
 
 
 
-export default class LoginScreen extends Component{
+export const LoginScreen = () => {
    
+let [email, setEmail] = useState("")
+let [password, setPassword] = useState(" ")
 
-constructor(props){
-    super(props)
-    
-    this.state = { 
-        email: '',
-        password: '',
-       
-    }
-    
+
+const handleEmailInput = (event) => {
+    setEmail(event.target.value)
 }
 
-handleEmailInput = (event) => {
-    this.setState({
-        email: event.target.value,
-    });
-
-}
-
-handlePasswordInput = (event) => {
-    this.setState({
-        password: event.target.value,
-    });
+const handlePasswordInput = (event) => {
+    setPassword(event.target.value)
 }
 
 
-handleEvent = (event) => {
-    logIn(this.state.email, this.state.password);
-    console.log(this.state.email);
-    console.log(this.state.password);
+const handleEvent = (event) => {
+    logIn(email, password, history);
+    console.log(email);
+    console.log(password);
   } 
     
-    render(){
+    
         
     
     return(
@@ -49,7 +37,7 @@ handleEvent = (event) => {
         <Container>
         <Row>
         <Col className="d-flex justify-content-center">
-        <h1>Flash Cards</h1>
+        <h1>L33T Developers Flashcards</h1>
         </Col>
         </Row>
         </Container>
@@ -60,17 +48,17 @@ handleEvent = (event) => {
                 <Form>
                     <Form.Group >
                     <Form.Label>Email</Form.Label>
-                    <Form.Control onChange={this.handleEmailInput} type='email'required />
+                    <Form.Control onChange={handleEmailInput} type='email'name="email" required />
                     </Form.Group>
 
                     <Form.Group >
                     <Form.Label>Password</Form.Label>
-                    <Form.Control onChange={this.handlePasswordInput} type='Password'  required />
+                    <Form.Control onChange={handlePasswordInput} type='Password' name="email"  required />
                     </Form.Group>
 
                 </Form>
                 <div className='pt-4'>
-                <Button onClick={this.handleEvent} className='w-100' type='submit'>Login</Button>
+                <Button onClick={handleEvent} className='w-100' type='submit'>Login</Button>
                 </div>
                     
             </Card.Body>
@@ -83,5 +71,4 @@ handleEvent = (event) => {
         
     )
 
-    }
 }

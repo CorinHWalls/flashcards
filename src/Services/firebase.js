@@ -2,8 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { createBrowserHistory } from 'history'
-import { getDatabase, ref, query, orderByChild,  } from "firebase/database";
+import { useHistory } from "react-router-dom";
+
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -61,11 +62,11 @@ async function getFlashCards(){
    
       if(doc.data().Category === 'Javascript'){
         jsCards.push(doc.data())
-        console.log("Javascript", jsCards);
+        // console.log("Javascript", jsCards);
       }
       if(doc.data().Category === 'React'){
         reactCards.push(doc.data())
-        console.log(reactCards)
+        // console.log(reactCards)
       }
       if(doc.data().Category === 'HTML'){
         htmlCards.push(doc.data())
@@ -100,19 +101,20 @@ function getCSSData(){
 
 // const categories = query(ref(db, 'flashcards'), equalTo('javascript'));
 
-const newHistory = createBrowserHistory();
 
 
-function logIn(email, password){
-  console.log("hit");
+
+function logIn(email, password, history){
+  console.log("Logging in...");
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)   //issue here not reaching this point
-    .then((userCredential) => {
-      
-      // Signed in 
-      const user = userCredential.user;
-      console.log('Signed in')
-      newHistory.push('/flashcard');
+  .then((userCredential) => {
+    
+    // Signed in 
+    const user = userCredential.user;
+    console.log(history)
+    
+      history.push('/flashcard');
       console.log(user);
     })
     .catch((error) => {
@@ -122,8 +124,24 @@ function logIn(email, password){
     });
 }
 
+function signUp(email, password){
+  
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    });
+}
 
 
 
 
-export { firebase, db, getFlashCards, getData, getJSData, getReactData, getHTMLData, getCSSData, AddFlashCard, logIn }
+
+export { firebase, db, getFlashCards, getData, getJSData, getReactData, getHTMLData, getCSSData, AddFlashCard, logIn, signUp }

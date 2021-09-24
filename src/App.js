@@ -6,16 +6,18 @@ import {
   Switch,
   Route,
   Link,
-  BrowserRouter,
+  BrowserRouter
 } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { firebase, logIn } from "./Services/firebase";
 import React, { useState, useEffect } from "react";
 
-import AddCard from "./pages/addCard";
-import FlashCard from "./pages/flashcard";
+import {AddCard} from "./pages/addCard";
+import {FlashCard} from "./pages/flashcard";
 import SignupScreen from "./pages/signup";
-import LoginScreen from "./pages/login";
+import {LoginScreen} from "./pages/login";
+import history from './Services/history';
+import { useHistory } from "react-router-dom";
 
 function App() {
   return (
@@ -30,14 +32,14 @@ function App() {
                 style={{ minHeight: "100vh" }}
               >
                 <div className="w-100" style={{ maxWidth: "400px" }}>
-                  <LoginScreen />
+                  <LoginScreen history={history}/>
                 </div>
               </Container>
             </Route>
 
             {/* FlashCard Route */}
             <Route path="/flashcard">
-              <FlashCard />
+              <FlashCard  />
             </Route>
 
             {/* Add Card route */}

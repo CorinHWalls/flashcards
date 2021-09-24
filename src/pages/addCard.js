@@ -1,77 +1,62 @@
-import React, { Component } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Dropdown,
-  DropdownButton,
-} from "react-bootstrap";
-import { firebase, AddFlashCard, getFlashCards } from "../Services/firebase";
+import React, { useState } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { AddFlashCard, getFlashCards } from "../Services/firebase";
 import { Link } from "react-router-dom";
 
-export default class AddCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Category: "",
-      Definition: "",
-      Term: "",
-    };
-  }
-  
-  handleInputFields = (event) => {
-    
-    if (event.target.value === "Term") {
-      
-      this.setState({ Term: event.target.value });
-      
-    } else if (event.target.value === "Definition") {
-      
-      this.setState({ Definition: event.target.value });
+export const AddCard = () => {
+  let [Category, setCategory] = useState("");
+  let [Definition, setDefiniton] = useState("");
+  let [Term, setTerm] = useState("");
 
-    }
-    
+  ///obj being used to pass properties in addFlashCard function
+  let card = {
+    Category: Category,
+    Definition: Definition,
+    Term: Term,
   };
-  
-  
-  handleDropdown = (event) => {
-    console.log(event);
-    
+
+  const handleInputFields = (event) => {
+    if (event.target.name === "Term") {
+      setTerm(event.target.value);
+    } else if (event.target.name === "Definition") {
+      setDefiniton(event.target.value);
+    }
+  };
+
+  const handleDropdown = (event) => {
     if (event.target.value === "Javascript") {
-      this.setState({ Category: "Javascript" });
-      
-    } 
-    else if (event.target.value === "React") {
-      this.setState({ Category: "React" });
+      setCategory(event.target.value);
+    } else if (event.target.value === "React") {
+      setCategory(event.target.value);
     }
-    
   };
-  
-  handleSubmit = (event) => {
+
+  const handleSubmit = (event) => {
     event.preventDefault(); //stop page from reloading
-    AddFlashCard(this.state);
+    AddFlashCard(card); //passing obj I created as card
     setTimeout(function () {
+      //slowing down getFlashCards
       getFlashCards();
     }, 3000);
+    setTimeout(function () {
+      window.location.reload(true);
+
+    }, 2000)
   };
-  
-  render() {
 
-    // controls category title
-    const title = <h1>Category Selected: {this.state.Category}</h1>
+  return (
+    <Container>
+      <Row>
+        <Col md={12} className="d-flex justify-content-center pt-5">
+          <h1>Add Card</h1>
+        </Col>
 
-    return (
-      <Container>
-        <Row>
-          <Col md={12} className="d-flex justify-content-center pt-5">
-            <h1>Add Card</h1>
-          </Col>
-
-          <Container>
+        <Container>
           <Form>
-            <Form.Select onChange={this.handleDropdown} aria-label="Default select example">
+            <Form.Select
+              onChange={handleDropdown}
+              aria-label="Default select example"
+            >
               <option>Choose a Category</option>
               <option value="Javascript">Javascript</option>
               <option value="React">React</option>
@@ -79,38 +64,36 @@ export default class AddCard extends Component {
           </Form>
         </Container>
 
-          <Form className="mt-5">
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Term</Form.Label>
-              <Form.Control
-                name="Term"
-                onChange={this.handleInputFields}
-                type="text"
-                placeholder="Enter term"
-              />
-            </Form.Group>
+        <Form className="mt-5">
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Term</Form.Label>
+            <Form.Control
+              name="Term"
+              onChange={handleInputFields}
+              type="text"
+              placeholder="Enter term"
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Definition</Form.Label>
-              <Form.Control
-                name="Definition"
-                onChange={this.handleInputFields}
-                type="text"
-                placeholder="Enter definition"
-              />
-            </Form.Group>
-            
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Definition</Form.Label>
+            <Form.Control
+              name="Definition"
+              onChange={handleInputFields}
+              type="text"
+              placeholder="Enter definition"
+            />
+          </Form.Group>
 
-            <Button onClick={this.handleSubmit} variant="primary" type="submit">
-              Submit
-            </Button>
+          <Button onClick={handleSubmit} variant="primary" type="submit">
+            Submit
+          </Button>
 
-            <Button variant="primary" type="submit">
-              Cancel
-            </Button>
-          </Form>
-        </Row>
-      </Container>
-    );
-  }
-}
+          <Button variant="primary" type="submit">
+            Cancel
+          </Button>
+        </Form>
+      </Row>
+    </Container>
+  );
+};
