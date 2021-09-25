@@ -1,4 +1,4 @@
-// import logo from './logo.svg';
+//Everything in the App gets passed down to the children components
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Router, Switch, Route, Link } from "react-router-dom";
@@ -11,7 +11,8 @@ import { FlashCard } from "./pages/flashcard";
 import { SignupScreen } from "./pages/signup";
 import { LoginScreen } from "./pages/login";
 import history from "./Services/history";
-import "./styles/login.css";
+import "./styles/layout.css";
+import "./styles/Card.css";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <Router history={history}>
         <Switch>
           {/* Main Login Route */}
-          <Route exact path="/">
+          <Route exact path="/" component >
             <LoginScreen history={history} />
           </Route>
 
