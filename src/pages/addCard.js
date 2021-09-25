@@ -45,8 +45,49 @@ export const AddCard = () => {
   };
 
   return (
-    <Container>
-      <Row>
+    <Container className='section'>
+
+<div className="colour"></div>  
+      <div className="colour"></div>  
+      <div className="colour"></div>  
+      <div className="box">  
+            <div className="square"></div>  
+           <div className="square" ></div>  
+           <div className="square" ></div>  
+           <div className="square" ></div>  
+           <div className="square" ></div>  
+           <div className="container">  
+                <div className="form">  
+                     <h2>Add Card</h2>  
+                     <Form>
+            <Form.Select
+              onChange={handleDropdown}
+              aria-label="Default select example"
+            >
+              <option>Choose a Category</option>
+              <option value="Javascript">Javascript</option>
+              <option value="React">React</option>
+            </Form.Select>
+          </Form>
+                     <form>  
+                          <div className="input__box">  
+                               <input onChange={handleInputFields} name='Term' type="text" placeholder="Enter term" />  
+                          </div>  
+                          <div className="input__box">  
+                               <input onChange={handleInputFields} name='Definition' type="text" placeholder="Enter Definition" />  
+                          </div>  
+                          <div className="input__box">  
+                               <input onClick={handleSubmit} type="submit" value="Submit" />  
+                              
+                               <input  type="submit" value="Cancel" />  
+                          </div>  
+                     </form>  
+                     
+                </div>  
+           </div>  
+      </div>  
+
+      {/* <Row>
         <Col md={12} className="d-flex justify-content-center pt-5">
           <h1>Add Card</h1>
         </Col>
@@ -93,7 +134,7 @@ export const AddCard = () => {
             Cancel
           </Button>
         </Form>
-      </Row>
+      </Row> */}
     </Container>
   );
 };

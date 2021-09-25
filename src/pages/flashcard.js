@@ -5,13 +5,11 @@ import {
   getJSData,
   getReactData,
 } from "../Services/firebase";
-import "../styles/Card.css";
 import { Form } from "react-bootstrap";
 import { useHistory } from "react-router";
 
 import { Container, Row, Col } from "react-bootstrap";
 import addCardBtn from "./addCardBtn";
-
 
 export const FlashCard = () => {
   let [flashCards, setFlashCards] = useState(getData());
@@ -34,16 +32,14 @@ export const FlashCard = () => {
 
     if (index === flashCards.length) {
       setIndex(0);
-    }
-    else{
-      console.log('nothing left in array')
+    } else {
+      console.log("nothing left in array");
     }
   };
 
   const handlePrevBtn = (event) => {
-   
     if (index <= 0) {
-      setIndex(flashCards.length -1);
+      setIndex(flashCards.length - 1);
     } else {
       setIndex(0);
     }
@@ -59,7 +55,7 @@ export const FlashCard = () => {
     switch (event.target.value) {
       case "Javascript":
         data = await getJSData();
-        console.log(data)
+        console.log(data);
         break;
       case "React":
         data = await getReactData();
@@ -73,11 +69,10 @@ export const FlashCard = () => {
 
       default:
         data = getData();
-        console.log("All Category")
+        console.log("All Category");
         break;
     }
 
-  
     setIndex(0);
     setTimeout(function () {
       setFlashCards(data);
@@ -85,25 +80,28 @@ export const FlashCard = () => {
   };
 
   return (
-    <>
-      <Container>
-        <Form>
-          <Form.Select
-            onChange={handleChange}
-            aria-label="Default select example"
-          >
-            <option>Choose a Category</option>
-            <option value="default">All</option>
-            <option value="Javascript">Javascript</option>
-            <option value="React">React</option>
-          </Form.Select>
-        </Form>
-      </Container>
+    <Container className="section">
+      <div className="colour"></div>
+      <div className="colour"></div>
+      <div className="colour"></div>
+      <div className="box"> 
+        <div className="container">
+          <div className="form">
+            <h2>Flashcards</h2>
+            <Form>
+              <Form.Select
+                onChange={handleChange}
+                aria-label="Default select example"
+              >
+                <option>Choose a Category</option>
+                <option value="default">All</option>
+                <option value="Javascript">Javascript</option>
+                <option value="React">React</option>
+              </Form.Select>
+            </Form>
+          </div>
 
-      <Container className="center">
-        <Row>
-          <Col>
-            <div className="card">
+          <div className="card">
               <div onClick={handleCardFlip} className="card__inner">
                 <div className="card__face card__face--front">
                   {isLoaded ? flashCards[index].Term : ""}
@@ -124,24 +122,47 @@ export const FlashCard = () => {
                 </div>
               </div>
             </div>
-          </Col>
-        </Row>
-      </Container>
 
-      <Container className="center">
-        <Row>
-          <Col>
-            <button onClick={handlePrevBtn} className="btn btn-danger">
+            <div className="input__box">  
+                       <input type="submit" value="Prev" />  
+      
+                  </div> 
+            <button onClick={handlePrevBtn} className="btn btn-danger mt-5">
               Previous
             </button>
-          </Col>
-          <Col>
-            <button onClick={handleNextBtn} className="btn btn-warning">
+            <button onClick={handleNextBtn} className="btn btn-warning mt-5" >
               Next
             </button>
-          </Col>
-        </Row>
-      </Container>
-    </>
+        </div>
+      </div>
+    </Container>
+
+    /* <div className="card">
+              <div onClick={handleCardFlip} className="card__inner">
+                <div className="card__face card__face--front">
+                  {isLoaded ? flashCards[index].Term : ""}
+                </div>
+                <div className="card__face card__face--back">
+                  <div className="card__content">
+                    <div className="card__header">
+                      Category: {isLoaded ? flashCards[index].Category : ""}
+                    </div>
+                    <div className="card__body">
+                      {isLoaded ? flashCards[index].Term : ""}
+                      <p>
+                        <br />
+                        {isLoaded ? flashCards[index].Definition : ""}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button onClick={handlePrevBtn} className="btn btn-danger mt-5">
+              Previous
+            </button>
+            <button onClick={handleNextBtn} className="btn btn-warning mt-5" >
+              Next
+            </button> */
   );
 };

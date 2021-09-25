@@ -22,7 +22,7 @@
     width: 600px;
     height: 400px;
     perspective: 1000px;
-    /* background-color: darkgrey; */
+    background: transparent;
     border: transparent;
   }
   
@@ -58,6 +58,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 25px;
+    color: #FFF;
   }
   
   .card__face--front h2 {
@@ -95,7 +97,7 @@
     background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary) 115%);
     z-index: -1;
     border-radius: 0px 0px 50% 0px;
-    background-color: darkgray;
+    /* background-color: darkgray; */
   }
   
   .pp {

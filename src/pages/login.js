@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { firebase, logIn} from "../Services/firebase";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import history from '../Services/history';
 
 
@@ -62,39 +61,12 @@ const handleEvent = (event) => {
                           <div className="input__box">  
                                <input onClick={handleEvent} type="submit" value="Login" />  
                           </div>  
-                          <p className="forget">Forgot Password? <a href="#">Click Here</a></p>  
-                          <p className="forget">Don't have an account? <a href="#">Sign Up</a></p>  
+                          <p className="forget">Don't have an account? <Link to="/signup"><a>Sign Up</a></Link></p>  
                      </form>  
                 </div>  
            </div>  
       </div>  
         
-
-      {/* <Card className="pt-2">
-            <Card.Body>
-                <h2 className="text-center mb-4">Login</h2>
-                <Form>
-                    <Form.Group >
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control  onChange={handleEmailInput} type='email'name="email" required />
-                    </Form.Group>
-
-                    <Form.Group  >
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control className="input input__box" onChange={handlePasswordInput} type='Password' name="email"  required />
-                    </Form.Group>
-
-                </Form>
-                <div className='pt-4'>
-                <Button onClick={handleEvent} className='w-100' type='submit'>Login</Button>
-                </div>
-                    
-            </Card.Body>
-        </Card>
-            <div className="w-100 text-center mt-2">
-                Need an account? Signup
-            </div> */}
-
         </Container>
             </>
         
