@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useHistory } from "react-router-dom";
+import history from "./history";
 
 
 
@@ -112,10 +113,9 @@ function logIn(email, password, history){
     
     // Signed in 
     const user = userCredential.user;
-    console.log(history)
     
       history.push('/flashcard');
-      console.log(user);
+      
     })
     .catch((error) => {
       

@@ -16,17 +16,21 @@ let [password, setPassword] = useState(" ")
 
 const handleEmailInput = (event) => {
     setEmail(event.target.value)
+    console.log(email);
 }
 
 const handlePasswordInput = (event) => {
+    
     setPassword(event.target.value)
+   console.log(password);
 }
 
 
 const handleEvent = (event) => {
+    event.preventDefault()
     logIn(email, password, history);
-    console.log(email);
-    console.log(password);
+    console.log("this is history ", history)
+
   } 
     
     
@@ -34,26 +38,50 @@ const handleEvent = (event) => {
     
     return(
         <>
-        <Container>
-        <Row>
-        <Col className="d-flex justify-content-center">
-        <h1>L33T Developers Flashcards</h1>
-        </Col>
-        </Row>
-        </Container>
+        <Container className='section'>
 
-      <Card className="pt-2">
+        <div className="colour"></div>  
+      <div className="colour"></div>  
+      <div className="colour"></div>  
+      <div className="box">  
+            <div className="square"></div>  
+           <div className="square" ></div>  
+           <div className="square" ></div>  
+           <div className="square" ></div>  
+           <div className="square" ></div>  
+           <div className="container">  
+                <div className="form">  
+                     <h2>Login </h2>  
+                     <form>  
+                          <div className="input__box">  
+                               <input onChange={handleEmailInput} name='email' type="email" placeholder="Username" />  
+                          </div>  
+                          <div className="input__box">  
+                               <input onChange={handlePasswordInput} name='password' type="password" placeholder="Password" />  
+                          </div>  
+                          <div className="input__box">  
+                               <input onClick={handleEvent} type="submit" value="Login" />  
+                          </div>  
+                          <p className="forget">Forgot Password? <a href="#">Click Here</a></p>  
+                          <p className="forget">Don't have an account? <a href="#">Sign Up</a></p>  
+                     </form>  
+                </div>  
+           </div>  
+      </div>  
+        
+
+      {/* <Card className="pt-2">
             <Card.Body>
                 <h2 className="text-center mb-4">Login</h2>
                 <Form>
                     <Form.Group >
                     <Form.Label>Email</Form.Label>
-                    <Form.Control onChange={handleEmailInput} type='email'name="email" required />
+                    <Form.Control  onChange={handleEmailInput} type='email'name="email" required />
                     </Form.Group>
 
-                    <Form.Group >
+                    <Form.Group  >
                     <Form.Label>Password</Form.Label>
-                    <Form.Control onChange={handlePasswordInput} type='Password' name="email"  required />
+                    <Form.Control className="input input__box" onChange={handlePasswordInput} type='Password' name="email"  required />
                     </Form.Group>
 
                 </Form>
@@ -65,9 +93,10 @@ const handleEvent = (event) => {
         </Card>
             <div className="w-100 text-center mt-2">
                 Need an account? Signup
-            </div>
+            </div> */}
+
+        </Container>
             </>
-        // </Container>
         
     )
 

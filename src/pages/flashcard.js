@@ -12,34 +12,38 @@ import { useHistory } from "react-router";
 import { Container, Row, Col } from "react-bootstrap";
 import addCardBtn from "./addCardBtn";
 
+
 export const FlashCard = () => {
-  let [flashCards, setFlashCards] = useState([]);
+  let [flashCards, setFlashCards] = useState(getData());
   let [index, setIndex] = useState(0);
   let [isLoaded, setIsLoaded] = useState(false);
 
+  ///Handling changes
   useEffect(() => {
     setTimeout(function () {
       getFlashCards();
-    }, 500);
-    //not sure this will work
-    setFlashCards(getData());
+    }, 100);
     setTimeout(function () {
       setIsLoaded(true);
-    }, 1000);
-  });
+    }, 500);
+  }, [flashCards]);
 
   //Updating states for Next and prev buttons
   const handleNextBtn = (event) => {
     setIndex(++index);
 
-    if (index == flashCards.length - 1) {
-      setIndex(++flashCards.length);
+    if (index === flashCards.length) {
+      setIndex(0);
+    }
+    else{
+      console.log('nothing left in array')
     }
   };
 
   const handlePrevBtn = (event) => {
-    if (index === 0) {
-      setIndex(flashCards.length - 1);
+   
+    if (index <= 0) {
+      setIndex(flashCards.length -1);
     } else {
       setIndex(0);
     }
@@ -55,6 +59,7 @@ export const FlashCard = () => {
     switch (event.target.value) {
       case "Javascript":
         data = await getJSData();
+        console.log(data)
         break;
       case "React":
         data = await getReactData();
@@ -68,12 +73,15 @@ export const FlashCard = () => {
 
       default:
         data = getData();
+        console.log("All Category")
         break;
     }
 
   
     setIndex(0);
-    setFlashCards(data);
+    setTimeout(function () {
+      setFlashCards(data);
+    }, 500);
   };
 
   return (

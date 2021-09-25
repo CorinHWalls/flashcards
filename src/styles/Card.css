@@ -14,7 +14,7 @@
     font-family: montserrat, sans-serif;
     width: 100%;
     min-height: 100vh;
-    background-color: darkgray;
+    
   }
   
   .card {
@@ -22,7 +22,7 @@
     width: 600px;
     height: 400px;
     perspective: 1000px;
-    background-color: darkgrey;
+    /* background-color: darkgrey; */
     border: transparent;
   }
   
@@ -33,7 +33,7 @@
     transform-style: preserve-3d;
     cursor: pointer;
     position: relative;
-    background-color: darkgray;
+    /* background-color: darkgray; */
   }
   
   .card__inner.is-flipped {

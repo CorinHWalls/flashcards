@@ -15,7 +15,7 @@ import {SignupScreen} from './pages/signup'
 
 ReactDOM.render(
   
-  <LoginScreen/>,
+  <App/>,
   document.getElementById('root')
 );
 
