@@ -1,18 +1,16 @@
-//Everything in the App gets passed down to the children components
+//Everything in the App gets passed down to the children components ex: Routes, css, etc. 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Router, Switch, Route, Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import { firebase, logIn } from "./Services/firebase";
-import React, { useState, useEffect } from "react";
-
+import { Router, Switch, Route} from "react-router-dom";
+import React from "react";
 import { AddCard } from "./pages/addCard";
 import { FlashCard } from "./pages/flashcard";
 import { SignupScreen } from "./pages/signup";
 import { LoginScreen } from "./pages/login";
-import history from "./Services/history";
+import history from "./Services/history"; //using this because login function is in the firebase component
 import "./styles/layout.css";
 import "./styles/Card.css";
+
 // import { useHistory } from "react-router-dom";
 
 function App() {

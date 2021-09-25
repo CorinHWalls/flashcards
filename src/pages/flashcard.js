@@ -7,9 +7,11 @@ import {
 } from "../Services/firebase";
 import { Form } from "react-bootstrap";
 import { useHistory } from "react-router";
-
 import { Container, Row, Col } from "react-bootstrap";
 import addCardBtn from "./addCardBtn";
+
+
+
 
 export const FlashCard = () => {
   let [flashCards, setFlashCards] = useState(getData());
@@ -128,7 +130,7 @@ export const FlashCard = () => {
       
                   </div> 
             <button onClick={handlePrevBtn} className="btn btn-danger mt-5">
-              Previous
+              <img src="../assets/left-arrow.png" alt="" srcset="" />
             </button>
             <button onClick={handleNextBtn} className="btn btn-warning mt-5" >
               Next
@@ -137,32 +139,6 @@ export const FlashCard = () => {
       </div>
     </Container>
 
-    /* <div className="card">
-              <div onClick={handleCardFlip} className="card__inner">
-                <div className="card__face card__face--front">
-                  {isLoaded ? flashCards[index].Term : ""}
-                </div>
-                <div className="card__face card__face--back">
-                  <div className="card__content">
-                    <div className="card__header">
-                      Category: {isLoaded ? flashCards[index].Category : ""}
-                    </div>
-                    <div className="card__body">
-                      {isLoaded ? flashCards[index].Term : ""}
-                      <p>
-                        <br />
-                        {isLoaded ? flashCards[index].Definition : ""}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button onClick={handlePrevBtn} className="btn btn-danger mt-5">
-              Previous
-            </button>
-            <button onClick={handleNextBtn} className="btn btn-warning mt-5" >
-              Next
-            </button> */
+    
   );
 };
