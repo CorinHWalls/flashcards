@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Container, Alert} from "react-bootstrap";
 import { firebase, logIn} from "../Services/firebase";
 import { Link } from "react-router-dom";
 import history from '../Services/history';
@@ -11,6 +11,8 @@ export const LoginScreen = () => {
    
 let [email, setEmail] = useState("")
 let [password, setPassword] = useState(" ")
+const [error, setError] = useState("")
+const [loading, setLoading] = useState(false)
 
 
 const handleEmailInput = (event) => {
@@ -26,10 +28,16 @@ const handlePasswordInput = (event) => {
 
 
 const handleEvent = (event) => {
-    event.preventDefault()
-    logIn(email, password, history);
-    console.log("this is history ", history)
+     event.preventDefault()
+     try{
+          setError("")
+           setLoading(true)
+          logIn(email, password, history);
 
+     } catch{
+          setError("Failed to log in")
+     }
+     setLoading(false)
   } 
     
     
@@ -50,7 +58,8 @@ const handleEvent = (event) => {
            <div className="square" ></div>  
            <div className="container">  
                 <div className="form">  
-                     <h2>Login </h2>  
+                     <h2>Lets play a game...</h2>  
+                     {error && <Alert variant="danger">{error}</Alert>}
                      <form>  
                           <div className="input__box">  
                                <input onChange={handleEmailInput} name='email' type="email" placeholder="Username" />  
@@ -59,7 +68,7 @@ const handleEvent = (event) => {
                                <input onChange={handlePasswordInput} name='password' type="password" placeholder="Password" />  
                           </div>  
                           <div className="input__box">  
-                               <input onClick={handleEvent} type="submit" value="Login" />  
+                               <input disabled={loading} onClick={handleEvent} type="submit" value="Login" />  
                           </div>  
                           <p className="forget">Don't have an account? <Link to="/signup"><a>Sign Up</a></Link></p>  
                      </form>  
@@ -68,6 +77,7 @@ const handleEvent = (event) => {
       </div>  
         
         </Container>
+        
             </>
         
     )

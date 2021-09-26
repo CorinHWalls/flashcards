@@ -9,7 +9,10 @@ p{
 }
 body {  
     overflow: hidden;  
-}  
+} 
+#dropdown{
+    width: 80%;
+} 
 .section {  
     display: flex;  
     min-height: 100vh;  
@@ -164,7 +167,9 @@ body {
     max-width: 100px;  
     font-weight: 600;  
     margin-bottom: 20px;  
-}  
+} 
+
+
 .forget {  
     color: #666;  
     margin-top: 5px;  

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { AddFlashCard, getFlashCards } from "../Services/firebase";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 export const AddCard = () => {
   let [Category, setCategory] = useState("");
   let [Definition, setDefiniton] = useState("");
   let [Term, setTerm] = useState("");
+  let history = useHistory();
 
   ///obj being used to pass properties in addFlashCard function
   let card = {
@@ -44,6 +46,10 @@ export const AddCard = () => {
     }, 2000)
   };
 
+  const handleCancel = () => {
+    history.push('/flashCard');
+  }
+
   return (
     <Container className='section'>
 
@@ -71,15 +77,15 @@ export const AddCard = () => {
           </Form>
                      <form>  
                           <div className="input__box">  
-                               <input onChange={handleInputFields} name='Term' type="text" placeholder="Enter term" />  
+                               <input onChange={handleInputFields} name='Term' type="text" placeholder="Enter term" required/>  
                           </div>  
                           <div className="input__box">  
-                               <input onChange={handleInputFields} name='Definition' type="text" placeholder="Enter Definition" />  
+                               <input onChange={handleInputFields} name='Definition' type="text" placeholder="Enter Definition" required />  
                           </div>  
                           <div className="input__box">  
                                <input onClick={handleSubmit} type="submit" value="Submit" />  
                               
-                               <input  type="submit" value="Cancel" />  
+                               <input onClick={handleCancel} type="submit" value="Cancel" />  
                           </div>  
                      </form>  
                      
