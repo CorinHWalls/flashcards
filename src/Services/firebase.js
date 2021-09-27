@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import history from "./history";
 
@@ -139,6 +139,16 @@ function signUp(email, password){
       console.log(errorMessage);
     });
 }
+
+// function logOut(){
+//   const auth = getAuth();
+//   if(auth.currentUser != null){
+//       auth.signOut().then(() => {
+//           console.log('signed out');
+//       });
+//   }else{
+//       alert('Not signed in');
+// }
 
 
 

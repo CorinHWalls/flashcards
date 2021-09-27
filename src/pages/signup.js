@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState} from "react";
 import { Alert, Container } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 import {signUp} from '../Services/firebase'
@@ -12,7 +12,8 @@ export const SignupScreen = () => {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     let [passwordConfirm, setPasswordConfirm] = useState('');
-    const [error, setError] = useState("");
+    let [error, setError] = useState("");
+    let history = useHistory()
     // const [loading, setLoading] = useState(false)
 
   const handleInputFields = (event) => {
@@ -27,6 +28,7 @@ export const SignupScreen = () => {
               break;
           case 'passwordConfirmation':
               setPasswordConfirm(event.target.value);
+              console.log(passwordConfirm);
               break;
       
           default: 
@@ -34,26 +36,31 @@ export const SignupScreen = () => {
       }
   }
   
-  let history = useHistory()
   
    async function handleSubmit (event) {
+     event.preventDefault(); //stop page from reloading
      
      //if password does not equal passwordConfirm setError()
      if (password !== passwordConfirm) {
-       return setError("Passwords do not match")
-      }
-      // event.preventDefault(); //stop page from reloading
-     
+       setError("Passwords do not match")
+        console.log(password);
+        console.log(passwordConfirm);
+      } else{
+
         try {
           setError("")
           // setLoading(true)
           await signUp(email, password)
-          // history.push("/")
+
+          //setTimeout here and display signup complete message
+          history.push("/")
           
         } catch {
           //if above does not work, setError()
           setError("Failed to create an account")
         }
+      }
+     
     // setLoading(false)
     
     }
@@ -86,7 +93,7 @@ export const SignupScreen = () => {
                        <input onChange={handleInputFields} name='password' type="password" placeholder="Password" required />  
                   </div>  
                   <div className="input__box">  
-                       <input onChange={handleInputFields} name='PasswordConfirmation' type="password" placeholder="Password Confirmation" required />  
+                       <input onChange={handleInputFields} name='passwordConfirmation' type="password" placeholder="Password Confirmation" required />  
                   </div>  
                   <div className="input__box">  
                        <input  onClick={handleSubmit} type="submit" value="Signup" />  

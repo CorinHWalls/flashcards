@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Form, Alert } from "react-bootstrap";
 import { AddFlashCard, getFlashCards } from "../Services/firebase";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 export const AddCard = () => {
@@ -9,6 +8,7 @@ export const AddCard = () => {
   let [Definition, setDefiniton] = useState("");
   let [Term, setTerm] = useState("");
   let history = useHistory();
+  let [error, setError] = useState("");
 
   ///obj being used to pass properties in addFlashCard function
   let card = {
@@ -17,38 +17,60 @@ export const AddCard = () => {
     Term: Term,
   };
 
+  const enableFields = () =>{
+    let inputOne = document.getElementById('inputField1').classList.remove('visuallyhidden');
+    let inputTwo = document.getElementById('inputField2').classList.remove('visuallyhidden');
+    let cardBtns = document.getElementById('addCardBtns').classList.remove('visuallyhidden');
+  }
+
   const handleInputFields = (event) => {
     if (event.target.name === "Term") {
       setTerm(event.target.value);
     } else if (event.target.name === "Definition") {
       setDefiniton(event.target.value);
     }
+
+    if(event.target.value === ""){
+      setError('Enter a term and definition');
+    }
   };
 
   const handleDropdown = (event) => {
+    enableFields();
     if (event.target.value === "Javascript") {
       setCategory(event.target.value);
     } else if (event.target.value === "React") {
       setCategory(event.target.value);
     }
+      
   };
 
   const handleSubmit = (event) => {
     event.preventDefault(); //stop page from reloading
-    AddFlashCard(card); //passing obj I created as card
-    setTimeout(function () {
-      //slowing down getFlashCards
-      getFlashCards();
-    }, 3000);
-    setTimeout(function () {
-      window.location.reload(true);
 
-    }, 2000)
+    if(Definition === "" && Term === ""  ){
+      setError('Enter a term and definition');
+    }else if(Term === "") {
+      setError('Enter a Term');
+    }else if(Definition === ""){
+      setError('Enter a Definition');
+    } else{
+      AddFlashCard(card); //passing obj I created as card
+      setTimeout(function () {
+        //slowing down getFlashCards
+        getFlashCards();
+      }, 3000);
+      setTimeout(function () {
+        window.location.reload(true);
+  
+      }, 2000)
+    }
   };
 
   const handleCancel = () => {
     history.push('/flashCard');
   }
+  
 
   return (
     <Container className='section'>
@@ -64,7 +86,8 @@ export const AddCard = () => {
            <div className="square" ></div>  
            <div className="container">  
                 <div className="form">  
-                     <h2>Add Card</h2>  
+                     <h2>Add Card</h2> 
+                     {error && <Alert variant="danger">{error}</Alert>} 
                      <Form>
             <Form.Select
               onChange={handleDropdown}
@@ -76,14 +99,14 @@ export const AddCard = () => {
             </Form.Select>
           </Form>
                      <form>  
-                          <div className="input__box">  
-                               <input onChange={handleInputFields} name='Term' type="text" placeholder="Enter term" required/>  
+                          <div id='inputField1' className="input__box visuallyhidden">  
+                               <input  onChange={handleInputFields} name='Term' type="text" placeholder="Enter term" required/>  
                           </div>  
-                          <div className="input__box">  
+                          <div id='inputField2' className="input__box visuallyhidden">  
                                <input onChange={handleInputFields} name='Definition' type="text" placeholder="Enter Definition" required />  
                           </div>  
-                          <div className="input__box">  
-                               <input onClick={handleSubmit} type="submit" value="Submit" />  
+                          <div  className="input__box">  
+                               <input id='addCardBtns' className="visuallyhidden" onClick={handleSubmit} type="submit" value="Submit" />  
                               
                                <input onClick={handleCancel} type="submit" value="Cancel" />  
                           </div>  

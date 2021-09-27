@@ -11,11 +11,13 @@ import history from "./Services/history"; //using this because login function is
 import "./styles/layout.css";
 import "./styles/Card.css";
 
+
 // import { useHistory } from "react-router-dom";
 
 function App() {
   return (
     <>
+ 
       <Router history={history}>
         <Switch>
           {/* Main Login Route */}
@@ -33,6 +35,11 @@ function App() {
 
           {/* Add Card route */}
           <Route path="/addcard" component={AddCard} />
+
+          {/* test */}
+      
+     
+  
         </Switch>
       </Router>
     </>

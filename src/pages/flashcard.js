@@ -7,28 +7,30 @@ import {
 } from "../Services/firebase";
 import { Form } from "react-bootstrap";
 import { useHistory } from "react-router";
-import { Container, Row, Col, Button, Offcanvas } from "react-bootstrap";
+import { Container, Row, Col, Button, Offcanvas, Nav } from "react-bootstrap";
 
 
 
 export const FlashCard = () => {
   let [flashCards, setFlashCards] = useState(getData());
+  // let randomNum = Math.floor(Math.random() * flashCards.length);
   let [index, setIndex] = useState(0);
-  let [isLoaded, setIsLoaded] = useState(false);
+  let [isLoaded, setIsLoaded] = useState(false); 
   let history = useHistory()
-  let [show, setShow] = useState(false);
-    
-  let handleClose = () => setShow(false);
-  let handleShow = () => setShow(true);
-
-  ///Handling changes
+  let [show, setShow] = useState(false);  
+  let handleClose = () => setShow(false);  //for the Instruction button
+  let handleShow = () => setShow(true);     
+  ///Handling changes / updates to the page
   useEffect(() => {
+    
     setTimeout(function () {
       getFlashCards();
     }, 100);
     setTimeout(function () {
+      
       setIsLoaded(true);
     }, 500);
+    
   }, [flashCards]);
 
   //Updating states for Next and prev buttons
@@ -37,17 +39,15 @@ export const FlashCard = () => {
 
     if (index === flashCards.length) {
       setIndex(0);
-    } else {
-      console.log("nothing left in array");
-    }
+    } 
   };
 
   const handlePrevBtn = (event) => {
-    if (index === 0) {
-      setIndex(flashCards.length - 1);
-    } else {
-      setIndex(flashCards.length - 1);
-    }
+    setIndex(--index);
+    if (index <= 0) {
+      setIndex(flashCards.length -1);
+      console.log('worked');
+    } 
   };
 
   const handleCardFlip = (event) => {
@@ -74,7 +74,7 @@ export const FlashCard = () => {
 
       default:
         data = getData();
-        console.log("All Category");
+
         break;
     }
 
@@ -90,12 +90,17 @@ export const FlashCard = () => {
 
   return (
    <>
-    <Row>
-    <Col className='d-flex justify-content-end'>
-              <Button onClick={handleShow} variant="outline-warning" size="lg">Help</Button>{' '}
-              </Col>
+<Nav className="justify-content-end mt-4 px-5" >
+    <Nav.Item>
+    <Button onClick={handleShow} variant="outline-warning" size="lg">Instructions</Button>{' '}
+    
+    </Nav.Item>
 
-    </Row>
+    <Nav.Item>
+    <Button onClick={addCard} variant="outline-warning mx-5" size="lg">Add Card</Button>{' '}
+    </Nav.Item>
+  
+  </Nav>
     <Container className="section">
       <div className="colour"></div>
       <div className="colour"></div>
@@ -120,9 +125,9 @@ export const FlashCard = () => {
             </Form>
               </Col>
 
-              <Col>
+              {/* <Col>
               <Button onClick={addCard} variant="outline-warning" size="lg">Add Card</Button>{' '}
-              </Col>
+              </Col> */}
 
             </Row>
           </div>

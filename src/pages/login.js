@@ -29,15 +29,25 @@ const handlePasswordInput = (event) => {
 
 const handleEvent = (event) => {
      event.preventDefault()
-     try{
-          setError("")
-           setLoading(true)
-          logIn(email, password, history);
 
-     } catch{
-          setError("Failed to log in")
+     if(email ==="" && password === ""){
+          setError('Please enter email and password')
+     } else if(password === ""){
+          setError('Please enter Password')
+     } else if(email === ""){
+          setError('Please enter your email address')
+     } else{
+
+          try{
+               setError("")
+                setLoading(true)
+               logIn(email, password, history);
+     
+          } catch{
+               setError("Failed to log in")
+          }
+          setLoading(false)
      }
-     setLoading(false)
   } 
     
     
@@ -62,10 +72,10 @@ const handleEvent = (event) => {
                      {error && <Alert variant="danger">{error}</Alert>}
                      <form>  
                           <div className="input__box">  
-                               <input onChange={handleEmailInput} name='email' type="email" placeholder="Username" />  
+                               <input onChange={handleEmailInput} name='email' type="email" placeholder="Email address" required />  
                           </div>  
                           <div className="input__box">  
-                               <input onChange={handlePasswordInput} name='password' type="password" placeholder="Password" />  
+                               <input onChange={handlePasswordInput} name='password' type="password" placeholder="Password" required/>  
                           </div>  
                           <div className="input__box">  
                                <input disabled={loading} onClick={handleEvent} type="submit" value="Login" />  
