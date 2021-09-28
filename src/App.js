@@ -35,10 +35,7 @@ function App() {
 
           {/* Add Card route */}
           <Route path="/addcard" component={AddCard} />
-
-          {/* test */}
       
-     
   
         </Switch>
       </Router>

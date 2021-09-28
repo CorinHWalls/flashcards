@@ -41,7 +41,7 @@ export const SignupScreen = () => {
      event.preventDefault(); //stop page from reloading
      
      //if password does not equal passwordConfirm setError()
-     if (password !== passwordConfirm) {
+     if (password !== passwordConfirm || password === "" || passwordConfirm === ""){
        setError("Passwords do not match")
         console.log(password);
         console.log(passwordConfirm);

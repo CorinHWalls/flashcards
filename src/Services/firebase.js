@@ -63,11 +63,11 @@ async function getFlashCards(){
    
       if(doc.data().Category === 'Javascript'){
         jsCards.push(doc.data())
-        // console.log("Javascript", jsCards);
+       
       }
       if(doc.data().Category === 'React'){
         reactCards.push(doc.data())
-        // console.log(reactCards)
+       
       }
       if(doc.data().Category === 'HTML'){
         htmlCards.push(doc.data())

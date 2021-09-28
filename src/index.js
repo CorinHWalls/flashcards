@@ -1,3 +1,6 @@
+// By Corin Walls
+//Last edited 9/27/21
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

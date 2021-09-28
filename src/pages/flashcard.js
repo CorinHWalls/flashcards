@@ -4,22 +4,25 @@ import {
   getFlashCards,
   getJSData,
   getReactData,
+  getCSSData,
+  getHTMLData
 } from "../Services/firebase";
 import { Form } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { Container, Row, Col, Button, Offcanvas, Nav } from "react-bootstrap";
+import '../styles/wickedcss.min.css'
 
 
 
 export const FlashCard = () => {
   let [flashCards, setFlashCards] = useState(getData());
-  // let randomNum = Math.floor(Math.random() * flashCards.length);
   let [index, setIndex] = useState(0);
   let [isLoaded, setIsLoaded] = useState(false); 
   let history = useHistory()
   let [show, setShow] = useState(false);  
   let handleClose = () => setShow(false);  //for the Instruction button
   let handleShow = () => setShow(true);     
+
   ///Handling changes / updates to the page
   useEffect(() => {
     
@@ -46,7 +49,6 @@ export const FlashCard = () => {
     setIndex(--index);
     if (index <= 0) {
       setIndex(flashCards.length -1);
-      console.log('worked');
     } 
   };
 
@@ -66,10 +68,10 @@ export const FlashCard = () => {
         data = await getReactData();
         break;
       case "HTML":
-        console.log("HTML was selected");
+        data = await getHTMLData();
         break;
       case "CSS":
-        console.log("CSS was selected");
+        data = await getCSSData();
         break;
 
       default:
@@ -119,21 +121,19 @@ export const FlashCard = () => {
               >
                 <option>Choose a Category</option>
                 <option value="default">All</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
                 <option value="Javascript">Javascript</option>
                 <option value="React">React</option>
               </Form.Select>
             </Form>
               </Col>
 
-              {/* <Col>
-              <Button onClick={addCard} variant="outline-warning" size="lg">Add Card</Button>{' '}
-              </Col> */}
-
             </Row>
           </div>
 
         {/* FlashCard */}
-          <div className="card">
+          <div className="card fadeIn">
             <div onClick={handleCardFlip} className="card__inner">
               <div className="card__face card__face--front">
                 {isLoaded ? flashCards[index].Term : ""}
@@ -173,7 +173,7 @@ export const FlashCard = () => {
 
         </div>
       </div>
-
+    {/* off canvas, next time will create component for it and inject */}
     <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Flashcard Instructions</Offcanvas.Title>

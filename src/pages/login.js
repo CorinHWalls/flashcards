@@ -23,7 +23,7 @@ const handleEmailInput = (event) => {
 const handlePasswordInput = (event) => {
     
     setPassword(event.target.value)
-   console.log(password);
+ 
 }
 
 
